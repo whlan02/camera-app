@@ -378,8 +378,7 @@ export default function CameraScreen() {
       const infoToEncode = JSON.stringify({
         deviceModel: Device.modelName,
         currentTime: new Date().toLocaleString(),
-        location: locData ? { latitude: locData.latitude, longitude: locData.longitude, accuracy: locData.accuracy } : null,
-        appVersion: '1.0.0',
+        location: locData ? { latitude: locData.latitude, longitude: locData.longitude } : null,
       });
 
       const htmlContent = `
@@ -497,20 +496,22 @@ export default function CameraScreen() {
       )}
 
       {webViewHtml && (
-        <WebView
-          originWhitelist={['*']}
-          source={{ html: webViewHtml, baseUrl: '' }}
-          onMessage={handleWebViewMessage}
-          style={styles.hiddenWebView}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          onError={(syntheticEvent) => {
-            const {nativeEvent} = syntheticEvent;
-            console.warn('WebView error: ', nativeEvent);
-            setIsEncoding(false);
-            setWebViewHtml(null);
-          }}
-        />
+        <View style={styles.hiddenWebViewContainer}>
+          <WebView
+            originWhitelist={['*']}
+            source={{ html: webViewHtml, baseUrl: '' }}
+            onMessage={handleWebViewMessage}
+            style={styles.webViewContent}
+            javaScriptEnabled={true}
+            domStorageEnabled={true}
+            onError={(syntheticEvent) => {
+              const {nativeEvent} = syntheticEvent;
+              console.warn('WebView error: ', nativeEvent);
+              setIsEncoding(false);
+              setWebViewHtml(null);
+            }}
+          />
+        </View>
       )}
     </View>
   );
@@ -579,12 +580,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
   },
-  hiddenWebView: {
+  hiddenWebViewContainer: {
+    position: 'absolute',
     width: 0,
     height: 0,
-    position: 'absolute',
-    top: -1000,
-    left: -1000,
+    opacity: 0,
+    top: -3000,
+    left: -3000,
+    overflow: 'hidden',
+  },
+  webViewContent: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
   },
   loadingIndicator: {
     flex: 1,

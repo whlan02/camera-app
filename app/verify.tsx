@@ -292,7 +292,7 @@ export default function Verify() {
     setIsDecoding(true);
 
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: 'images',
       allowsEditing: false,
       quality: 1,
       base64: true, // Request base64 directly
@@ -448,21 +448,23 @@ export default function Verify() {
       )}
 
       {webViewHtml && (
-        <WebView
-          originWhitelist={['*']}
-          source={{ html: webViewHtml, baseUrl: '' }}
-          onMessage={handleWebViewMessage}
-          style={styles.hiddenWebView} // Make WebView invisible
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          onError={(syntheticEvent) => {
-            const {nativeEvent} = syntheticEvent;
-            console.warn('WebView error (verify screen): ', nativeEvent);
-            setErrorText(`WebView initialization failed: ${nativeEvent.description}`);
-            setIsDecoding(false);
-            setWebViewHtml(null);
-          }}
-        />
+        <View style={styles.hiddenWebViewContainer}> 
+          <WebView
+            originWhitelist={['*']}
+            source={{ html: webViewHtml, baseUrl: '' }}
+            onMessage={handleWebViewMessage}
+            style={styles.webViewContent}
+            javaScriptEnabled={true}
+            domStorageEnabled={true}
+            onError={(syntheticEvent) => {
+              const {nativeEvent} = syntheticEvent;
+              console.warn('WebView error (verify screen): ', nativeEvent);
+              setErrorText(`WebView initialization failed: ${nativeEvent.description}`);
+              setIsDecoding(false);
+              setWebViewHtml(null);
+            }}
+          />
+        </View>
       )}
 
       <TouchableOpacity 
@@ -470,7 +472,7 @@ export default function Verify() {
         onPress={() => router.back()}
         disabled={isDecoding}
       >
-        <Text style={styles.buttonText}>← Back to Main Menu</Text>
+        <Text style={styles.backButtonText}>← Back to Main Menu</Text>
       </TouchableOpacity>
     </View>
   );
@@ -507,6 +509,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
+  backButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'black',
+  },
   imagePreview: {
     width: 200,
     height: 200,
@@ -542,12 +549,19 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: '#ffcccc',
   },
-  hiddenWebView: {
+  hiddenWebViewContainer: {
+    position: 'absolute',
     width: 0,
     height: 0,
-    position: 'absolute',
-    top: -2000,
-    left: -2000,
+    opacity: 0,
+    top: -3000,
+    left: -3000,
+    overflow: 'hidden',
+  },
+  webViewContent: {
+    flex: 1,
+    width: '100%', 
+    height: '100%',
   },
   loadingContainer: {
     marginVertical: 20,
