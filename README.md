@@ -15,7 +15,7 @@ Welcome to the Camera App repository! This project is designed to provide a user
 Before you begin, ensure you have met the following requirements:
 
 - You have a compatible operating system (Windows, macOS, or Linux).
-- You have [Node.js](https://nodejs.org/) installed (version X.X.X or higher).
+- You have [Node.js](https://nodejs.org/) installed
 - You have [Expo CLI](https://docs.expo.dev/get-started/installation/) installed globally. You can install it using npm:
 
   ```bash
@@ -49,7 +49,7 @@ Before you begin, ensure you have met the following requirements:
 To start the application, run the following command:
 
 ```bash
-npm start
+npx expo start
 ```
 
 This will launch the Expo development server. You can then scan the QR code with the Expo Go app on your mobile device to view the application.
