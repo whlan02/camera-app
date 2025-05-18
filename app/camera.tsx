@@ -377,7 +377,7 @@ export default function CameraScreen() {
 
       const infoToEncode = JSON.stringify({
         deviceModel: Device.modelName,
-        currentTime: new Date().toLocaleString(),
+        Time: new Date().toLocaleString(),
         location: locData ? { latitude: locData.latitude, longitude: locData.longitude } : null,
       });
 

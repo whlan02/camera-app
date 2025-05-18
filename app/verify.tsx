@@ -393,7 +393,7 @@ export default function Verify() {
             for (const key in parsedData) {
                 if (parsedData.hasOwnProperty(key)) {
                     if (key === 'location' && parsedData[key]) {
-                        formattedString += `Location: Lat: ${parsedData[key].latitude}, Lon: ${parsedData[key].longitude}, Acc: ${parsedData[key].accuracy}\n`;
+                        formattedString += `Location:\nLat: ${parsedData[key].latitude}\nLon: ${parsedData[key].longitude}\n`;
                     } else {
                         formattedString += `${key.charAt(0).toUpperCase() + key.slice(1)}: ${parsedData[key]}\n`;
                     }
