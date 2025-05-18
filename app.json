@@ -4,7 +4,7 @@
     "slug": "camera-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/camera@3x.png",
     "userInterfaceStyle": "light",
     "scheme": "camera-app",
     "assetBundlePatterns": [
@@ -32,7 +32,8 @@
         "android.permission.ACCESS_MEDIA_LOCATION",
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION"
-      ]
+      ],
+      "package": "com.blueking21st.cameraapp"
     },
     "plugins": [
       [
@@ -55,6 +56,12 @@
           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "2914410f-b64a-4405-a161-6073dc68da2c"
+      }
+    }
   }
 }
